@@ -24,6 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     chatBloc = ChatBloc.getInstance();
     inputController = TextEditingController();
+    inputController.addListener(() => chatBloc.dispatch(TypingMessage(message: inputController.value.text)));
     focus = FocusNode();
     provider = ChatProvider(
       chatBloc: chatBloc,
@@ -46,7 +47,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          title: Text('TYPOGRAPH', style: ITTextStyle(fontSize: 12)),
+          title: Text('TYPOGRAPH', style: ITTextStyle(fontSize: 14)),
           elevation: 1,
           centerTitle: true,
           backgroundColor: ITColors.bg,

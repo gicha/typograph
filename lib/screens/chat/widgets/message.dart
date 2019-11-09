@@ -77,7 +77,13 @@ class MessageWidget extends StatelessWidget {
                     )),
               ],
             ),
-          )
+          ),
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: ITImage("${Config.apiUrl}/user_image/${message.userId}"),
+          ),
         ],
       ),
     );

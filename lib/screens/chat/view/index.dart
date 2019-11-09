@@ -4,6 +4,7 @@ import 'package:typograph/blocs/blocs.dart';
 import 'package:typograph/screens/chat/provider.dart';
 import 'package:typograph/screens/chat/widgets/keyboard.dart';
 import 'package:typograph/screens/chat/widgets/message.dart';
+import 'package:typograph/screens/chat/widgets/user_typing.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({Key key, @required this.provider}) : super(key: key);
@@ -20,50 +21,49 @@ class _ChatViewState extends State<ChatView> {
   double get height => MediaQuery.of(context).size.height;
 
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              width: width,
-              height: height - 130,
-              child: BlocBuilder(
-                bloc: chatBloc,
-                builder: (BuildContext context, ChatState state) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        if (state.loadStatus == LoadStatus.loading)
-                          Container(
-                            height: 50,
-                            width: width,
-                            child: CircularProgressIndicator(),
-                          ),
-                        if (state.loadStatus == LoadStatus.error)
-                          Container(
-                            height: 50,
-                            width: width,
-                            child: Text('Ошибка при загрузке сообщений'),
-                          ),
-                        if ((state.chat ?? []).isNotEmpty)
-                          ...List.generate(
-                            state.chat.length,
-                            (index) => MessageWidget(
-                              message: state.chat[index],
-                            ),
-                          ),
-                        if ((state.chat ?? []).isEmpty) Center(child: Text('отправьте сообщение, чтобы начать')),
-                      ],
-                    ),
-                  );
-                },
-              ),
+    return BlocBuilder(
+        bloc: chatBloc,
+        builder: (BuildContext context, ChatState state) {
+          return Container(
+            width: width,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                      width: width,
+                      height: height - 130,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            if (state.loadStatus == LoadStatus.loading)
+                              Container(
+                                height: 50,
+                                width: width,
+                                child: CircularProgressIndicator(),
+                              ),
+                            if (state.loadStatus == LoadStatus.error)
+                              Container(
+                                height: 50,
+                                width: width,
+                                child: Text('Ошибка при загрузке сообщений'),
+                              ),
+                            if ((state.chat ?? []).isNotEmpty)
+                              ...List.generate(
+                                state.chat.length,
+                                (index) => MessageWidget(
+                                  message: state.chat[index],
+                                ),
+                              ),
+                            if ((state.chat ?? []).isEmpty) Center(child: Text('отправьте сообщение, чтобы начать')),
+                          ],
+                        ),
+                      )),
+                ),
+                if (state.userTyping != null) UserTypingWidget(userTyping: state.userTyping),
+                Keyboard(provider: provider),
+              ],
             ),
-          ),
-          Keyboard(provider: provider),
-        ],
-      ),
-    );
+          );
+        });
   }
 }

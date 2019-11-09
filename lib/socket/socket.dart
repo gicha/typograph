@@ -1,9 +1,5 @@
-library api;
-
-import 'dart:convert';
 import 'package:typograph/blocs/blocs.dart';
 import 'package:typograph/utils/config.dart';
-import 'package:flutter/foundation.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 import '../models/serializers.dart';
@@ -20,8 +16,6 @@ import '../models/models.dart';
 /// Then you can use Api like: [Api.yourAwesomeMethod()]
 ///
 /// {@category Network}
-_parseAndDecode(String response) => jsonDecode(response);
-_parseJson(String text) => compute(_parseAndDecode, text);
 
 class ITSocket {
   static SocketIO socket;
@@ -51,10 +45,17 @@ class ITSocket {
       Message message = serializers.deserializeWith(Message.serializer, data);
       ChatBloc.getInstance().dispatch(NewMessageChat(message: message));
     });
+    socket.on("typing", (data) {
+      UserTyping userTyping = serializers.deserializeWith(UserTyping.serializer, data);
+      ChatBloc.getInstance().dispatch(NewUserTyping(userTyping: userTyping));
+    });
     socket.connect();
   }
 
   static void send(text) => socket.emit("chat message", [
+        {"message": text}
+      ]);
+  static void typing(text) => socket.emit("user_typing", [
         {"message": text}
       ]);
 }
