@@ -20,7 +20,7 @@ abstract class Message implements Built<Message, MessageBuilder> {
 
   @nullable
   @BuiltValueField(wireName: 'time')
-  String get time;
+  DateTime get time;
 
   @nullable
   @BuiltValueField(wireName: 'audio')

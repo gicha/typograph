@@ -34,7 +34,7 @@ class _$MessageSerializer implements StructuredSerializer<Message> {
       result
         ..add('time')
         ..add(serializers.serialize(object.time,
-            specifiedType: const FullType(String)));
+            specifiedType: const FullType(DateTime)));
     }
     if (object.audio != null) {
       result
@@ -72,7 +72,7 @@ class _$MessageSerializer implements StructuredSerializer<Message> {
           break;
         case 'time':
           result.time = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(DateTime)) as DateTime;
           break;
         case 'audio':
           result.audio = serializers.deserialize(value,
@@ -95,7 +95,7 @@ class _$Message extends Message {
   @override
   final String message;
   @override
-  final String time;
+  final DateTime time;
   @override
   final String audio;
   @override
@@ -156,9 +156,9 @@ class MessageBuilder implements Builder<Message, MessageBuilder> {
   String get message => _$this._message;
   set message(String message) => _$this._message = message;
 
-  String _time;
-  String get time => _$this._time;
-  set time(String time) => _$this._time = time;
+  DateTime _time;
+  DateTime get time => _$this._time;
+  set time(DateTime time) => _$this._time = time;
 
   String _audio;
   String get audio => _$this._audio;

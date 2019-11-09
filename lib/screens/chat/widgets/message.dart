@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lottie_plus/flutter_lottie_plus.dart';
 import 'package:typograph/models/models.dart';
 import 'package:typograph/res/res.dart';
 import 'package:typograph/res/text_style.dart';
+import 'package:typograph/utils/config.dart';
 import 'package:typograph/widgets/image.dart';
 
 //виджет сообщения
@@ -56,12 +58,19 @@ class MessageWidget extends StatelessWidget {
                       children: <Widget>[
                         if (message.image != null)
                           Container(
-                            width: MediaQuery.of(context).size.width * .6,
-                            child: ITImage(message.image.source),
+                            width: 150,
+                            height: 150,
+                            child: LottieView.fromURL(
+                              url: "${Config.apiUrl}/message_photo/${message.image.source}",
+                              autoPlay: true,
+                              loop: true,
+                              reverse: true,
+                              onViewCreated: (controller) {},
+                            ),
                           ),
                         Container(
                           constraints: BoxConstraints(minWidth: 0, maxWidth: MediaQuery.of(context).size.width * .6),
-                          child: Text(message.message,
+                          child: Text(message.message ?? "",
                               style: ITTextStyle(color: isLeft ? Color(0xff0D0925) : Colors.white, fontSize: 15)),
                         ),
                       ],
