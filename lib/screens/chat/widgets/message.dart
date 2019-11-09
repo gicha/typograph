@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:typograph/models/models.dart';
+import 'package:typograph/res/res.dart';
 import 'package:typograph/res/text_style.dart';
 import 'package:typograph/widgets/image.dart';
 
@@ -42,24 +43,14 @@ class MessageWidget extends StatelessWidget {
               children: <Widget>[
                 Container(
                     padding: EdgeInsets.all(MediaQuery.of(context).size.width * .05),
-                    decoration: isLeft
-                        ? BoxDecoration(
-                            color: Color(0xffF1F0F0),
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(0),
-                                bottomRight: Radius.circular(15)))
-                        : BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(isLeft ? 0 : 15),
-                                bottomRight: Radius.circular(isLeft ? 15 : 0)),
-                            gradient: LinearGradient(
-                                colors: [Color(0xFF4801FF), Color(0x777918F2), Color(0xffAC32E4)],
-                                begin: Alignment(-1.0, -1.0),
-                                end: Alignment(4.0, -20.0))),
+                    decoration: BoxDecoration(
+                      color: isLeft ? Color(0xffF1F0F0) : ITColors.primary,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(isLeft ? 0 : 15),
+                          bottomRight: Radius.circular(isLeft ? 15 : 0)),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

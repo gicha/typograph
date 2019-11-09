@@ -3,6 +3,6 @@
 class Config {
   static const String dbName = "typograph";
   static const int dbVersion = 1;
-  static String apiUrl = "http://localhost:3000";
+  static String apiUrl = "https://5afe43b2.ngrok.io";
   static String userId;
 }

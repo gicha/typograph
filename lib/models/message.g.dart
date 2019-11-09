@@ -18,10 +18,10 @@ class _$MessageSerializer implements StructuredSerializer<Message> {
   Iterable<Object> serialize(Serializers serializers, Message object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[];
-    if (object.id != null) {
+    if (object.userId != null) {
       result
         ..add('id')
-        ..add(serializers.serialize(object.id,
+        ..add(serializers.serialize(object.userId,
             specifiedType: const FullType(String)));
     }
     if (object.message != null) {
@@ -63,7 +63,7 @@ class _$MessageSerializer implements StructuredSerializer<Message> {
       final dynamic value = iterator.current;
       switch (key) {
         case 'id':
-          result.id = serializers.deserialize(value,
+          result.userId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'message':
@@ -91,7 +91,7 @@ class _$MessageSerializer implements StructuredSerializer<Message> {
 
 class _$Message extends Message {
   @override
-  final String id;
+  final String userId;
   @override
   final String message;
   @override
@@ -104,7 +104,7 @@ class _$Message extends Message {
   factory _$Message([void Function(MessageBuilder) updates]) =>
       (new MessageBuilder()..update(updates)).build();
 
-  _$Message._({this.id, this.message, this.time, this.audio, this.image})
+  _$Message._({this.userId, this.message, this.time, this.audio, this.image})
       : super._();
 
   @override
@@ -118,7 +118,7 @@ class _$Message extends Message {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Message &&
-        id == other.id &&
+        userId == other.userId &&
         message == other.message &&
         time == other.time &&
         audio == other.audio &&
@@ -128,7 +128,7 @@ class _$Message extends Message {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, id.hashCode), message.hashCode), time.hashCode),
+        $jc($jc($jc($jc(0, userId.hashCode), message.hashCode), time.hashCode),
             audio.hashCode),
         image.hashCode));
   }
@@ -136,7 +136,7 @@ class _$Message extends Message {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Message')
-          ..add('id', id)
+          ..add('userId', userId)
           ..add('message', message)
           ..add('time', time)
           ..add('audio', audio)
@@ -148,9 +148,9 @@ class _$Message extends Message {
 class MessageBuilder implements Builder<Message, MessageBuilder> {
   _$Message _$v;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String _userId;
+  String get userId => _$this._userId;
+  set userId(String userId) => _$this._userId = userId;
 
   String _message;
   String get message => _$this._message;
@@ -172,7 +172,7 @@ class MessageBuilder implements Builder<Message, MessageBuilder> {
 
   MessageBuilder get _$this {
     if (_$v != null) {
-      _id = _$v.id;
+      _userId = _$v.userId;
       _message = _$v.message;
       _time = _$v.time;
       _audio = _$v.audio;
@@ -201,7 +201,7 @@ class MessageBuilder implements Builder<Message, MessageBuilder> {
     try {
       _$result = _$v ??
           new _$Message._(
-              id: id,
+              userId: userId,
               message: message,
               time: time,
               audio: audio,

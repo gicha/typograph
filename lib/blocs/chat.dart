@@ -5,26 +5,28 @@ enum LoadStatus { loading, loaded, error }
 abstract class ChatEvent {}
 
 //событие получения сообщений
-class FetchChat extends ChatEvent {}
+class FetchChat extends ChatEvent {
+  final List<Message> chat;
+  FetchChat({@required this.chat});
+}
 
-//событие очистки сообщений
-class CleanChat extends ChatEvent {}
+class NewMessageChat extends ChatEvent {
+  final Message message;
+  NewMessageChat({@required this.message});
+}
 
 //событие отправки сообщений
 class SendMessage extends ChatEvent {
   final String message;
-  SendMessage({this.message});
+  SendMessage({@required this.message});
 }
 
-class DerivedMessage extends ChatEvent {
-  final Message message;
-  DerivedMessage({this.message});
-}
+class DerivedMessage extends ChatEvent {}
 
 class ChatState {
   List<Message> chat = [];
   String newMessage;
-  bool hasReachedMax;
+  LoadStatus newMessageStatus = LoadStatus.loaded;
   LoadStatus loadStatus = LoadStatus.loaded;
 
   ChatState();
@@ -32,13 +34,13 @@ class ChatState {
   ChatState copyWith({
     List<Message> chat,
     String newMessage,
-    bool hasReachedMax,
+    LoadStatus newMessageStatus = LoadStatus.loaded,
     LoadStatus loadStatus = LoadStatus.loaded,
   }) {
     return ChatState()
       ..chat = chat ?? this.chat
       ..newMessage = newMessage ?? this.newMessage
-      ..hasReachedMax = hasReachedMax ?? this.hasReachedMax
+      ..newMessageStatus = newMessageStatus ?? this.newMessageStatus
       ..loadStatus = loadStatus ?? this.loadStatus;
   }
 }
@@ -57,18 +59,18 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
     if (event is FetchChat) {
-      yield currentState.copyWith(loadStatus: LoadStatus.loading);
-      await Future.delayed(Duration(seconds: 2));
-      // yield currentState.copyWith(chat: chat, loadStatus: LoadStatus.loaded);
+      yield currentState.copyWith(chat: event.chat, loadStatus: LoadStatus.loaded);
     }
-    if (event is CleanChat) {
-      yield currentState.copyWith(chat: []);
+    if (event is NewMessageChat) {
+      currentState.chat.add(event.message);
+      yield currentState.copyWith(chat: currentState.chat, loadStatus: LoadStatus.loaded);
+    }
+    if (event is DerivedMessage) {
+      yield currentState.copyWith(newMessageStatus: LoadStatus.loaded, newMessage: null);
     }
     if (event is SendMessage) {
-      yield currentState.copyWith(loadStatus: LoadStatus.loading, newMessage: event.message);
-      await Future.delayed(Duration(seconds: 2));
-      // currentState.chat.add(await MessageApi.send(event.message));
-      yield currentState.copyWith(chat: currentState.chat, loadStatus: LoadStatus.loaded, newMessage: null);
+      yield currentState.copyWith(newMessageStatus: LoadStatus.loading, newMessage: event.message);
+      ITSocket.send(event.message);
     }
   }
 }

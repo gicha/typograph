@@ -46,12 +46,6 @@ class _ChatViewState extends State<ChatView> {
                             width: width,
                             child: Text('Ошибка при загрузке сообщений'),
                           ),
-                        if ((state.chat ?? []).isEmpty)
-                          Container(
-                            height: 50,
-                            width: width,
-                            child: Text('отправьте сообщение, чтобы начать'),
-                          ),
                         if ((state.chat ?? []).isNotEmpty)
                           ...List.generate(
                             state.chat.length,
@@ -59,10 +53,7 @@ class _ChatViewState extends State<ChatView> {
                               message: state.chat[index],
                             ),
                           ),
-                        if ((state.chat ?? []).isEmpty)
-                          Center(child: Text('отправьте сообщение, чтобы начать')),
-
-                        // state.add(AloneMessageWidget(message: state.newMessage)),
+                        if ((state.chat ?? []).isEmpty) Center(child: Text('отправьте сообщение, чтобы начать')),
                       ],
                     ),
                   );

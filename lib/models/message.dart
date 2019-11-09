@@ -12,7 +12,7 @@ abstract class Message implements Built<Message, MessageBuilder> {
 
   @nullable
   @BuiltValueField(wireName: 'id')
-  String get id;
+  String get userId;
 
   @nullable
   @BuiltValueField(wireName: 'message')

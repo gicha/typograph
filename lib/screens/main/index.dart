@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:typograph/generated/i18n.dart';
-import 'package:typograph/res/res.dart';
 import 'package:typograph/screens/main/blocs/index.dart';
 import 'package:typograph/widgets/loading.dart';
 
@@ -33,25 +31,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: ITColors.primary,
-        ),
-        backgroundColor: ITColors.bg,
-      ),
-      appBar: AppBar(
-        title: Text(I18n.of(context).title),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.account_circle,
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
       body: BlocBuilder(
         bloc: bloc,
         builder: (context, state) {
