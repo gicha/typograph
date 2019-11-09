@@ -88,6 +88,8 @@ class I18n implements WidgetsLocalizations {
   String get cancel => "Отменить";
   /// "поиск..."
   String get search => "поиск...";
+  /// "ваше сообщение"
+  String get message => "ваше сообщение";
 }
 
 class _I18n_ru_RU extends I18n {
@@ -184,6 +186,9 @@ class _I18n_en_US extends I18n {
   /// "search..."
   @override
   String get search => "search...";
+  /// "message"
+  @override
+  String get message => "message";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;

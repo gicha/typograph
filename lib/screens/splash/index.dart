@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:typograph/generated/i18n.dart';
+import 'package:typograph/res/res.dart';
 import 'package:typograph/widgets/loading.dart';
 
 /// Splashscreen with loader

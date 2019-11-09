@@ -1,9 +1,7 @@
 library api;
 
 import 'dart:convert';
-import 'dart:math' as math;
 
-import 'package:typograph/blocs/blocs.dart';
 import 'package:typograph/utils/config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
@@ -50,7 +48,6 @@ class Socket {
 
   static void send(text) {
     socket.emitWithAck("message", ["Hello world!"]).then((data) {
-      // this callback runs when this specific message is acknowledged by the server
       print(data);
     });
   }
