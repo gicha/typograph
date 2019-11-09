@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:typograph/screens/chat/index.dart';
 import 'package:typograph/screens/main/widgets/chat.dart';
 
 class MainScreenView extends StatefulWidget {
@@ -25,12 +26,6 @@ class _MainScreenViewState extends State<MainScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        ChatItem(),
-        ChatItem(),
-        ChatItem(),
-      ],
-    );
+    return ChatScreen();
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:typograph/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:typograph/widgets/loading.dart';
 
 import 'blocs/blocs.dart';
 
@@ -61,6 +61,7 @@ void startHome() async {
             return CupertinoApp(
               showSemanticsDebugger: false,
               debugShowCheckedModeBanner: false,
+              navigatorObservers: [],
               theme: CupertinoThemeData(
                   brightness: theme.brightness,
                   primaryColor: theme.primaryColor,
@@ -80,7 +81,11 @@ void startHome() async {
                 child: Builder(
                   builder: (context) {
                     ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-                      return Center(child: Text("Ошибка: ${errorDetails.exception}"));
+                      return Center(
+                        child: Text(
+                          "Ошибка: ${errorDetails.exception}",
+                        ),
+                      );
                     };
                     return MultiBlocListener(
                       listeners: [
@@ -88,7 +93,13 @@ void startHome() async {
                           bloc: notificationBloc,
                           listener: (context, state) {
                             if (state.text != null)
-                              showDialog(context: context, builder: (context) => AlertDialog(title: Text(state.text)));
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(state.text),
+                                    );
+                                  });
                           },
                         ),
                         BlocListener(

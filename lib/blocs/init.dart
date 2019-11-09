@@ -27,36 +27,18 @@ class InitBloc extends Bloc<InitEvent, InitState> {
 
   @override
   Stream<InitState> mapEventToState(InitEvent event) async* {
-    if (event is RenewInitEvent) {
-      var store = StoreRef<String, dynamic>.main();
-      var storeUserId = await store.record("userId").get(DataBase.db);
-      String userId;
-      if (storeUserId != null) userId = storeUserId;
-      //   try {
-      //     await AuthApi.renew(userSession.renewToken).then((UserSession userSession) {
-      //       store.record("userSession").put(DataBase.db, serializers.serializeWith(UserSession.serializer, userSession));
-      //       Config.userSession = userSession;
-      //     });
-      //   } catch (e) {
-      //     yield InitState.noUser;
-      //   }
-      //   Api.init(userSession.token);
-      //   yield InitState.inited;
-      //   return;
-      // }
+    if (event is InitInitEvent) {
+      yield InitState.notInitedLoading;
 
-      // if (event is InitInitEvent) {
-      //   yield InitState.notInitedLoading;
+      await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+      if (Platform.isAndroid)
+        debugDefaultTargetPlatformOverride = TargetPlatform.android;
+      else
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
-      //   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-      //   if (Platform.isAndroid)
-      //     debugDefaultTargetPlatformOverride = TargetPlatform.android;
-      //   else
-      //     debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-
-      //   await DataBase().open();
-      //   Api.init();
-      //   await initializeDateFormatting();
+      await DataBase().open();
+      // Api.init();
+      // await initializeDateFormatting();
 
       // var store = StoreRef<String, dynamic>.main();
       // var storeSession = await store.record("userSession").get(DataBase.db);
@@ -76,8 +58,8 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       //   return;
       // }
       // Api.init(userSession.token);
-      // yield InitState.inited;
-      // return;
+      yield InitState.inited;
+      return;
     }
     if (event is ForceInitEvent) yield InitState.inited;
   }
