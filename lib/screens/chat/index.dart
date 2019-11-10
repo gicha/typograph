@@ -29,7 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
     inputController = TextEditingController();
     inputController.addListener(() {
       String newMessage = inputController.value.text;
-      if (newMessage.split(" ").length != chatBloc.currentState.newMessage.split(" ").length) {
+      if (newMessage?.split(" ")?.length != chatBloc.currentState.newMessage?.split(" ")?.length) {
         chatBloc.dispatch(
           NewUserTyping(
             userTyping: UserTyping(
