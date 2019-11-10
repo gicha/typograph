@@ -41,7 +41,11 @@ class ITSocket {
   }
 
   static void send({String text, String audio, Media media}) => socket.emit("chat message", [
-        {"message": text, "audio": audio, "image": media}
+        {
+          "message": text,
+          "audio": audio,
+          "image": {"type": media?.type, "source": media?.source}
+        }
       ]);
   static void typing(text) => socket.emit("user_typing", [
         {"message": text}
