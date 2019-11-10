@@ -17,7 +17,7 @@ class UserTypingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 70,
+      height: 80,
       color: Colors.white.withOpacity(0.1),
       child: ClipRect(
         child: BackdropFilter(
@@ -35,8 +35,8 @@ class UserTypingWidget extends StatelessWidget {
                           ..type = "gif"
                           ..source = userTyping.stickers[index]))),
                     child: Container(
-                      height: 70,
-                      width: 70,
+                      height: 80,
+                      width: 80,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: IgnorePointer(child: lottie(userTyping.stickers[index])),
                     ),

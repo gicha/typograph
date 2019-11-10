@@ -1,3 +1,4 @@
+import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie_plus/flutter_lottie_plus.dart';
 import 'package:typograph/models/models.dart';
@@ -93,12 +94,37 @@ class OtherMessageWidget extends StatelessWidget {
       return Container(
         width: 150,
         height: 150,
-        child: LottieView.fromURL(
-          url: "${Config.apiUrl}/message_photo/${message.image.source}",
-          autoPlay: true,
-          loop: true,
-          onViewCreated: (controller) {},
-        ),
+        child: Stack(children: [
+          Animator(
+            curve: Curves.easeInOutBack,
+            tween: Tween(begin: 0.0, end: 150.0),
+            cycles: 100000,
+            duration: Duration(seconds: 2),
+            repeats: 100000,
+            builder: (Animation animation) {
+              return Positioned(
+                left: animation.value,
+                top: animation.value % 50,
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  child: ITImage(
+                    "${Config.apiUrl}/user_image/${message.userId}",
+                    borderRadius: 45,
+                  ),
+                ),
+              );
+            },
+          ),
+          Center(
+            child: LottieView.fromURL(
+              url: "${Config.apiUrl}/message_photo/${message.image.source}",
+              autoPlay: true,
+              loop: true,
+              onViewCreated: (controller) {},
+            ),
+          ),
+        ]),
       );
     } on Exception catch (_) {
       return Container();
