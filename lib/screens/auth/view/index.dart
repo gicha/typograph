@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:typograph/blocs/blocs.dart';
+import 'package:typograph/res/res.dart';
 import 'package:typograph/screens/auth/provider.dart';
 import 'package:typograph/socket/socket.dart';
 
@@ -28,13 +29,16 @@ class _AuthViewState extends State<AuthView> {
         builder: (BuildContext context, ChatState state) {
           return Container(
             width: width,
+            height: height,
             child: Center(
               child: GestureDetector(
                 onTap: () async {
                   File file = await ImagePicker.pickImage(source: ImageSource.camera);
                   ITSocket.init(base64: "data:image/jpg;base64," + base64Encode(file.readAsBytesSync()));
+                  InitBloc.getInstance().dispatch(LoadingInitEvent());
                 },
                 child: Container(
+                  color: ITColors.text,
                   width: 100,
                   height: 50,
                 ),

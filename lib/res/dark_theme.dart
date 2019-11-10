@@ -14,9 +14,9 @@ ThemeData darkTheme = ThemeData(
       color: ITColors.bg,
       elevation: 30,
       iconTheme: IconThemeData(color: ITColors.textDark),
-      textTheme: TextTheme(title: TextStyle(color: ITColors.textDark, fontSize: 16, fontWeight: FontWeight.bold))),
+      textTheme: TextTheme(title: ITTextStyle(color: ITColors.textDark, fontSize: 16, fontWeight: FontWeight.bold))),
   textTheme: TextTheme(
-    title: TextStyle(color: ITColors.textDark),
+    title:ITTextStyle(color: ITColors.textDark),
   ),
   buttonTheme: ButtonThemeData(buttonColor: ITColors.primaryDark),
 );

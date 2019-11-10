@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:typograph/res/text_style.dart';
 
 Widget confirmDialog(context, {Function confirm, String text}) {
   return Column(
@@ -19,7 +20,7 @@ Widget confirmDialog(context, {Function confirm, String text}) {
               },
               child: Text(
                 'Подтвердить',
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                style: ITTextStyle(color: Theme.of(context).primaryColor),
               ),
             ),
             FlatButton(

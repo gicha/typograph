@@ -19,6 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
   ChatProvider provider;
   TextEditingController inputController;
   FocusNode focus;
+  ScrollController scrollController;
 
   @override
   void initState() {
@@ -26,10 +27,12 @@ class _ChatScreenState extends State<ChatScreen> {
     inputController = TextEditingController();
     inputController.addListener(() => chatBloc.dispatch(TypingMessage(message: inputController.value.text)));
     focus = FocusNode();
+    scrollController = ScrollController();
     provider = ChatProvider(
       chatBloc: chatBloc,
       focus: focus,
       inputController: inputController,
+      scrollController: scrollController,
     );
     super.initState();
   }
@@ -47,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          title: Text('TYPOGRAPH', style: ITTextStyle(fontSize: 14)),
+          title: Text('PHOTOHACK', style: ITTextStyle(fontSize: 20, color: ITColors.text, fontWeight: FontWeight.w400)),
           elevation: 1,
           centerTitle: true,
           backgroundColor: ITColors.bg,

@@ -19,7 +19,6 @@ class MainScreenBloc extends Bloc<MainScreenEvent, MainScreenState> {
     MainScreenEvent event,
   ) async* {
     if (event is LoadingEvent) {
-      // Implement your logic
       yield LoadedState();
     }
   }

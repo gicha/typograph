@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:typograph/res/res.dart';
 import 'package:flutter/material.dart';
+import 'package:typograph/res/text_style.dart';
 
 class TextBlockWidget extends StatelessWidget {
-  const TextBlockWidget(this.type, this.text,
-      {this.withDivider = true, this.customIcon, this.height = 200});
+  const TextBlockWidget(this.type, this.text, {this.withDivider = true, this.customIcon, this.height = 200});
 
   final String type;
   final String text;
@@ -24,10 +24,7 @@ class TextBlockWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 type,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Oswald'),
+                style: ITTextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Oswald'),
               ),
               SizedBox(
                 width: 24,
@@ -59,7 +56,7 @@ class TextBlockWidget extends StatelessWidget {
             width: MediaQuery.of(context).size.width * .9,
             child: AutoSizeText(
               text,
-              style: TextStyle(color: ITColors.text, fontFamily: 'Circe'),
+              style: ITTextStyle(color: ITColors.text, fontFamily: 'Circe'),
               textAlign: TextAlign.center,
             ),
           ),

@@ -10,7 +10,7 @@ class ITColors {
   static const leftCloud = Color(0xFFA573FF);
   static const leftCloudDark = Color(0xFF645AFF);
   static const text = Color(0xFFFFFFFF);
-  static const secondaryText = Color(0xFFE0E4EB);
+  static const secondaryText = Color(0xAAE0E4EB);
   static const textDark = Color(0xfffafafa);
   static const bg = Color(0xFF1C162E);
 }

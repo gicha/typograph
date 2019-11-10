@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:typograph/res/text_style.dart';
 import 'package:typograph/screens/auth/index.dart';
 import 'package:typograph/widgets/loading.dart';
 
@@ -101,7 +102,7 @@ void startHome() async {
                                           },
                                           child: Text(
                                             I18n.of(context).confirm,
-                                            style: TextStyle(color: Theme.of(context).primaryColor),
+                                            style: ITTextStyle(color: Theme.of(context).primaryColor),
                                           ),
                                         ),
                                         FlatButton(

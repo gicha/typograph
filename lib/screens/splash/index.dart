@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:typograph/generated/i18n.dart';
 import 'package:typograph/res/res.dart';
+import 'package:typograph/res/text_style.dart';
 import 'package:typograph/widgets/loading.dart';
 
 /// Splashscreen with loader
@@ -32,8 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
             margin: EdgeInsets.only(bottom: height * .2),
             child: Text(
               I18n.of(context).title,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: width * .1),
+              style: ITTextStyle(fontWeight: FontWeight.bold, fontSize: width * .1),
             ),
           ),
           ITLoading()

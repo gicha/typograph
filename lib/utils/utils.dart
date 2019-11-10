@@ -45,7 +45,7 @@ class Utils {
   }
 
   static String getHourMinuteString({DateTime dateTime, String stringTime}) {
-    DateTime time = dateTime ?? DateTime.parse(stringTime);
+    DateTime time = dateTime.add(Duration(hours: 3)) ?? DateTime.parse(stringTime);
     return "${twoDigits(time.hour)}:${twoDigits(time.minute)}";
   }
 

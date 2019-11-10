@@ -49,7 +49,7 @@ class Keyboard extends StatelessWidget {
                         },
                         child: Icon(
                           Icons.send,
-                          color: ITColors.primary,
+                          color: ITColors.text,
                           size: 26,
                         ))),
               ],

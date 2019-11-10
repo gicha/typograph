@@ -10,7 +10,7 @@ class InitInitEvent extends InitEvent {}
 
 class ForceInitEvent extends InitEvent {}
 
-class RenewInitEvent extends InitEvent {}
+class LoadingInitEvent extends InitEvent {}
 
 enum InitState { notInitedLoading, loading, inited, noUser, afterRegistration }
 
@@ -43,6 +43,7 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       } else
         yield InitState.noUser;
     }
+    if (event is LoadingInitEvent) yield InitState.loading;
     if (event is ForceInitEvent) {
       var store = StoreRef<String, dynamic>.main();
       Config.userId = await store.record("userId").put(DataBase.db, Config.userId);

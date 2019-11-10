@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:typograph/blocs/blocs.dart';
 import 'package:typograph/screens/chat/provider.dart';
 import 'package:typograph/screens/chat/widgets/keyboard.dart';
-import 'package:typograph/screens/chat/widgets/message.dart';
+import 'package:typograph/screens/chat/widgets/other_message.dart';
+import 'package:typograph/screens/chat/widgets/self_message.dart';
 import 'package:typograph/screens/chat/widgets/user_typing.dart';
+import 'package:typograph/utils/config.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({Key key, @required this.provider}) : super(key: key);
@@ -33,6 +35,7 @@ class _ChatViewState extends State<ChatView> {
                       width: width,
                       height: height - 130,
                       child: SingleChildScrollView(
+                        controller: provider.scrollController,
                         child: Column(
                           children: <Widget>[
                             if (state.loadStatus == LoadStatus.loading)
@@ -50,9 +53,9 @@ class _ChatViewState extends State<ChatView> {
                             if ((state.chat ?? []).isNotEmpty)
                               ...List.generate(
                                 state.chat.length,
-                                (index) => MessageWidget(
-                                  message: state.chat[index],
-                                ),
+                                (index) => state.chat[index].userId == Config.userId
+                                    ? SelfMessageWidget(message: state.chat[index])
+                                    : OtherMessageWidget(message: state.chat[index]),
                               ),
                             if ((state.chat ?? []).isEmpty) Center(child: Text('отправьте сообщение, чтобы начать')),
                           ],
