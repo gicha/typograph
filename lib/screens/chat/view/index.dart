@@ -35,6 +35,7 @@ class _ChatViewState extends State<ChatView> {
                       width: width,
                       height: height - 130,
                       child: SingleChildScrollView(
+                        reverse: true,
                         controller: provider.scrollController,
                         child: Column(
                           children: <Widget>[

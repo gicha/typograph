@@ -28,6 +28,9 @@ class _ChatScreenState extends State<ChatScreen> {
     inputController.addListener(() => chatBloc.dispatch(TypingMessage(message: inputController.value.text)));
     focus = FocusNode();
     scrollController = ScrollController();
+    chatBloc.dispatch(AddonNewMessageFunctionMessage(() {
+      scrollController.animateTo(0, duration: Duration(milliseconds: 900), curve: Curves.fastOutSlowIn);
+    }));
     provider = ChatProvider(
       chatBloc: chatBloc,
       focus: focus,

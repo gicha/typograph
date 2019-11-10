@@ -33,7 +33,10 @@ class NewUserTyping extends ChatEvent {
   NewUserTyping({@required this.userTyping});
 }
 
-class DerivedMessage extends ChatEvent {}
+class AddonNewMessageFunctionMessage extends ChatEvent {
+  final Function onNewMessage;
+  AddonNewMessageFunctionMessage(this.onNewMessage);
+}
 
 class ChatState {
   List<Message> chat = [];
@@ -41,6 +44,7 @@ class ChatState {
   Message newMessage;
   LoadStatus newMessageStatus = LoadStatus.loaded;
   LoadStatus loadStatus = LoadStatus.loaded;
+  Function onNewMessage;
 
   ChatState();
 
@@ -50,13 +54,15 @@ class ChatState {
     Message newMessage,
     LoadStatus newMessageStatus = LoadStatus.loaded,
     LoadStatus loadStatus = LoadStatus.loaded,
+    Function onNewMessage,
   }) {
     return ChatState()
       ..chat = chat ?? this.chat
       ..userTyping = userTyping ?? this.userTyping
       ..newMessage = newMessage
       ..newMessageStatus = newMessageStatus ?? this.newMessageStatus
-      ..loadStatus = loadStatus ?? this.loadStatus;
+      ..loadStatus = loadStatus ?? this.loadStatus
+      ..onNewMessage = onNewMessage ?? this.onNewMessage;
   }
 }
 
@@ -78,9 +84,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       yield currentState.copyWith(newMessage: event.message);
       currentState.chat.add(event.message);
       yield currentState.copyWith(chat: currentState.chat, newMessage: null);
+      currentState.onNewMessage();
     }
     if (event is SendMessage) ITSocket.send(text: event.message, audio: event.audio, media: event.media);
     if (event is TypingMessage) ITSocket.typing(event.message);
     if (event is NewUserTyping) yield currentState.copyWith(userTyping: event.userTyping);
+    if (event is AddonNewMessageFunctionMessage) yield currentState.copyWith(onNewMessage: event.onNewMessage);
   }
 }
