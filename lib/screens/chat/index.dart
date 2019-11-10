@@ -1,5 +1,7 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:typograph/blocs/blocs.dart';
+import 'package:typograph/models/models.dart';
 import 'package:typograph/res/res.dart';
 import 'package:typograph/res/text_style.dart';
 import 'package:typograph/screens/chat/provider.dart';
@@ -25,7 +27,21 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     chatBloc = ChatBloc.getInstance();
     inputController = TextEditingController();
-    inputController.addListener(() => chatBloc.dispatch(TypingMessage(message: inputController.value.text)));
+    inputController.addListener(() {
+      String newMessage = inputController.value.text;
+      if (newMessage.split(" ").length != chatBloc.currentState.newMessage.split(" ").length) {
+        chatBloc.dispatch(
+          NewUserTyping(
+            userTyping: UserTyping(
+              (_) => _
+                ..stickers = ListBuilder<String>([])
+                ..tracks = ListBuilder<Track>([]),
+            ),
+          ),
+        );
+      }
+      chatBloc.dispatch(TypingMessage(message: newMessage));
+    });
     focus = FocusNode();
     scrollController = ScrollController();
     chatBloc.dispatch(AddonNewMessageFunctionMessage(

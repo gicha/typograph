@@ -15,33 +15,35 @@ class UserTypingWidget extends StatelessWidget {
   //отрисовка виджета одного сообщения
   @override
   Widget build(BuildContext context) {
-    return BackdropFilter(
-      filter: UI.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: 70,
-        color: Colors.white.withOpacity(0.2),
-        child: SingleChildScrollView(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ...List.generate(userTyping.stickers.length, (index) {
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => ChatBloc.getInstance().dispatch(SendMessage(
-                      media: Media((_) => _
-                        ..type = "gif"
-                        ..source = userTyping.stickers[index]))),
-                  child: Container(
-                    height: 70,
-                    width: 70,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: IgnorePointer(child: lottie(userTyping.stickers[index])),
-                  ),
-                );
-              })
-            ],
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 70,
+      color: Colors.white.withOpacity(0.1),
+      child: ClipRect(
+        child: BackdropFilter(
+          filter: UI.ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+          child: SingleChildScrollView(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ...List.generate(userTyping.stickers.length, (index) {
+                  return GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => ChatBloc.getInstance().dispatch(SendMessage(
+                        media: Media((_) => _
+                          ..type = "gif"
+                          ..source = userTyping.stickers[index]))),
+                    child: Container(
+                      height: 70,
+                      width: 70,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: IgnorePointer(child: lottie(userTyping.stickers[index])),
+                    ),
+                  );
+                })
+              ],
+            ),
           ),
         ),
       ),

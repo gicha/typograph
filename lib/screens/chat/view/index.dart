@@ -72,7 +72,8 @@ class _ChatViewState extends State<ChatView> {
                     //height: 130,
                     width: width,
                     child: Column(children: [
-                      if (state.userTyping != null) UserTypingWidget(userTyping: state.userTyping),
+                      if (state?.userTyping?.stickers?.isNotEmpty ?? false)
+                        UserTypingWidget(userTyping: state.userTyping),
                       Keyboard(provider: provider),
                     ]),
                   ),

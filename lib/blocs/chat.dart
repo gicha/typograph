@@ -41,7 +41,7 @@ class AddonNewMessageFunctionMessage extends ChatEvent {
 class ChatState {
   List<Message> chat = [];
   UserTyping userTyping;
-  Message newMessage;
+  String newMessage;
   LoadStatus newMessageStatus = LoadStatus.loaded;
   LoadStatus loadStatus = LoadStatus.loaded;
   Function onNewMessage;
@@ -51,7 +51,7 @@ class ChatState {
   ChatState copyWith({
     List<Message> chat,
     UserTyping userTyping,
-    Message newMessage,
+    String newMessage,
     LoadStatus newMessageStatus = LoadStatus.loaded,
     LoadStatus loadStatus = LoadStatus.loaded,
     Function onNewMessage,
@@ -81,13 +81,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
     if (event is FetchChat) yield currentState.copyWith(chat: event.chat);
     if (event is NewMessageChat) {
-      yield currentState.copyWith(newMessage: event.message);
       currentState.chat.add(event.message);
       yield currentState.copyWith(chat: currentState.chat, newMessage: null);
       currentState.onNewMessage();
     }
     if (event is SendMessage) ITSocket.send(text: event.message, audio: event.audio, media: event.media);
-    if (event is TypingMessage) ITSocket.typing(event.message);
+    if (event is TypingMessage) {
+      ITSocket.typing(event.message);
+      yield currentState.copyWith(newMessage: event.message);
+    }
     if (event is NewUserTyping) yield currentState.copyWith(userTyping: event.userTyping);
     if (event is AddonNewMessageFunctionMessage) yield currentState.copyWith(onNewMessage: event.onNewMessage);
   }
