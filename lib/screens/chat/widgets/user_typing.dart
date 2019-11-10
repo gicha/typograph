@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lottie_plus/flutter_lottie_plus.dart';
+import 'package:typograph/blocs/blocs.dart';
 import 'package:typograph/models/models.dart';
-import 'package:typograph/res/res.dart';
-import 'package:typograph/res/text_style.dart';
 import 'package:typograph/utils/config.dart';
-import 'package:typograph/widgets/image.dart';
 
 //виджет сообщения
 //принимает модель сообщения
@@ -26,15 +24,27 @@ class UserTypingWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           ...List.generate(userTyping.stickers.length, (index) {
-            return Container(
-              width: 80,
-              height: 80,
-              child: LottieView.fromURL(
-                url: "${Config.apiUrl}/message_photo/${userTyping.stickers[index]}",
-                autoPlay: true,
-                loop: true,
-                reverse: true,
-                onViewCreated: (controller) {},
+            return GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                ChatBloc.getInstance().dispatch(SendMessage(
+                    media: Media((_) => _
+                      ..type = "gif"
+                      ..source = userTyping.stickers[index])));
+              },
+              child: Container(
+                width: 80,
+                height: 80,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: IgnorePointer(
+                  child: LottieView.fromURL(
+                    url: "${Config.apiUrl}/message_photo/${userTyping.stickers[index]}",
+                    autoPlay: true,
+                    loop: true,
+                    reverse: true,
+                    onViewCreated: (controller) {},
+                  ),
+                ),
               ),
             );
           })

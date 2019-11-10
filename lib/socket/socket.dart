@@ -5,18 +5,6 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import '../models/serializers.dart';
 import '../models/models.dart';
 
-// part './performance.dart';
-// part './auth.dart';
-
-/// base Api class
-/// Before using Api you must to:
-/// initialize [Api] using [Api.init()]
-/// flill [baseUrl] in Api class
-///
-/// Then you can use Api like: [Api.yourAwesomeMethod()]
-///
-/// {@category Network}
-
 class ITSocket {
   static SocketIO socket;
   static void init({String base64}) async {
@@ -52,8 +40,8 @@ class ITSocket {
     socket.connect();
   }
 
-  static void send(text) => socket.emit("chat message", [
-        {"message": text}
+  static void send({String text, String audio, Media media}) => socket.emit("chat message", [
+        {"message": text, "audio": audio, "image": media}
       ]);
   static void typing(text) => socket.emit("user_typing", [
         {"message": text}

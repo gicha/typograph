@@ -3,6 +3,6 @@
 class Config {
   static const String dbName = "typograph";
   static const int dbVersion = 1;
-  static String apiUrl = "https://453f7182.ngrok.io";
+  static String apiUrl = "https://photohack-novgorod.herokuapp.com";
   static String userId;
 }

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:typograph/screens/auth/index.dart';
 import 'package:typograph/widgets/loading.dart';
 
 import 'blocs/blocs.dart';
@@ -47,16 +48,7 @@ void startHome() async {
       builder: (context) {
         return DynamicTheme(
           defaultBrightness: Brightness.light,
-          data: (brightness) {
-            switch (brightness) {
-              case Brightness.light:
-                return lightTheme;
-              case Brightness.dark:
-                return darkTheme;
-              default:
-                return lightTheme;
-            }
-          },
+          data: (brightness) => darkTheme,
           themedWidgetBuilder: (context, theme) {
             return CupertinoApp(
               showSemanticsDebugger: false,
@@ -81,11 +73,7 @@ void startHome() async {
                 child: Builder(
                   builder: (context) {
                     ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-                      return Center(
-                        child: Text(
-                          "Ошибка: ${errorDetails.exception}",
-                        ),
-                      );
+                      return Center(child: Text("Ошибка: ${errorDetails.exception}"));
                     };
                     return MultiBlocListener(
                       listeners: [
@@ -93,13 +81,7 @@ void startHome() async {
                           bloc: notificationBloc,
                           listener: (context, state) {
                             if (state.text != null)
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(state.text),
-                                    );
-                                  });
+                              showDialog(context: context, builder: (context) => AlertDialog(title: Text(state.text)));
                           },
                         ),
                         BlocListener(
@@ -137,7 +119,7 @@ void startHome() async {
                         child: BlocBuilder(
                           bloc: bloc,
                           builder: (context, state) {
-                            if (state == InitState.noUser) return MainScreen();
+                            if (state == InitState.noUser) return AuthScreen();
                             if (state == InitState.loading)
                               return Scaffold(backgroundColor: Theme.of(context).backgroundColor, body: ITLoading());
                             if (state == InitState.notInitedLoading) return SplashScreen();

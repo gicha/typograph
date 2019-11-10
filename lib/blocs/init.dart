@@ -40,10 +40,8 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       Config.userId = await store.record("userId").get(DataBase.db);
       if (Config.userId != null) {
         ITSocket.init();
-      } else {
-        File file = await ImagePicker.pickImage(source: ImageSource.camera);
-        ITSocket.init(base64: "data:image/jpg;base64," + base64Encode(file.readAsBytesSync()));
-      }
+      } else
+        yield InitState.noUser;
     }
     if (event is ForceInitEvent) {
       var store = StoreRef<String, dynamic>.main();

@@ -5,13 +5,12 @@ part of './res.dart';
 ///
 /// {@category Resources}
 class ITColors {
-  static const primary = Color(0xFF8c65f6);
-  static const primaryDark = Color(0xFF052f7d);
-  static const text = Color(0xff212121);
-  static const secondaryText = Color(0xff898989);
+  static const primary = Color(0xFF14D2B8);
+  static const primaryDark = Color(0xFF2DC9EB);
+  static const leftCloud = Color(0xFFA573FF);
+  static const leftCloudDark = Color(0xFF645AFF);
+  static const text = Color(0xFFFFFFFF);
+  static const secondaryText = Color(0xFFE0E4EB);
   static const textDark = Color(0xfffafafa);
-  static const bg = Color(0xfffafafa);
-  static const bgLight = Colors.white;
-  static const bgDark = Color(0xff1b1b1b);
-  static const bgDarkLight = Color(0xff212121);
+  static const bg = Color(0xFF1C162E);
 }

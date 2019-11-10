@@ -18,7 +18,9 @@ class NewMessageChat extends ChatEvent {
 //событие отправки сообщений
 class SendMessage extends ChatEvent {
   final String message;
-  SendMessage({@required this.message});
+  final String audio;
+  final Media media;
+  SendMessage({this.message, this.audio, this.media});
 }
 
 class TypingMessage extends ChatEvent {
@@ -79,7 +81,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (event is DerivedMessage) yield currentState.copyWith(newMessageStatus: LoadStatus.loaded, newMessage: null);
     if (event is SendMessage) {
       yield currentState.copyWith(newMessageStatus: LoadStatus.loading, newMessage: event.message);
-      ITSocket.send(event.message);
+      ITSocket.send(text: event.message, audio: event.audio, media: event.media);
     }
     if (event is TypingMessage) ITSocket.typing(event.message);
     if (event is NewUserTyping) yield currentState.copyWith(userTyping: event.userTyping);
