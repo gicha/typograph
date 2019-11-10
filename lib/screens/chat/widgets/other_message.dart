@@ -32,11 +32,7 @@ class OtherMessageWidget extends StatelessWidget {
                 style: ITTextStyle(color: ITColors.secondaryText, fontSize: 12),
               ),
               SizedBox(width: 1),
-              Icon(
-                Icons.done_all,
-                color: ITColors.text,
-                size: 20,
-              ),
+              Icon(Icons.done_all, color: ITColors.text, size: 20),
             ],
           ),
         ),
