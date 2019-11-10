@@ -20,9 +20,6 @@ class Keyboard extends StatelessWidget {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width * .9,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                border: Border.all(color: Color(0xff0a0523).withOpacity(.2), width: 1)),
             height: 40.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

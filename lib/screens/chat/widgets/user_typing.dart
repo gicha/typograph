@@ -41,7 +41,6 @@ class UserTypingWidget extends StatelessWidget {
                     url: "${Config.apiUrl}/message_photo/${userTyping.stickers[index]}",
                     autoPlay: true,
                     loop: true,
-                    reverse: true,
                     onViewCreated: (controller) {},
                   ),
                 ),

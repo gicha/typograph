@@ -9,6 +9,8 @@ import 'package:typograph/res/res.dart';
 import 'package:typograph/screens/auth/provider.dart';
 import 'package:typograph/socket/socket.dart';
 
+import '../../../res/res.dart';
+
 class AuthView extends StatefulWidget {
   const AuthView({Key key, @required this.provider}) : super(key: key);
   final AuthProvider provider;
@@ -33,14 +35,25 @@ class _AuthViewState extends State<AuthView> {
             child: Center(
               child: GestureDetector(
                 onTap: () async {
-                  File file = await ImagePicker.pickImage(source: ImageSource.camera);
-                  ITSocket.init(base64: "data:image/jpg;base64," + base64Encode(file.readAsBytesSync()));
+                  File file =
+                      await ImagePicker.pickImage(source: ImageSource.camera);
+                  ITSocket.init(
+                      base64: "data:image/jpg;base64," +
+                          base64Encode(file.readAsBytesSync()));
                   InitBloc.getInstance().dispatch(LoadingInitEvent());
                 },
                 child: Container(
-                  color: ITColors.text,
+                  decoration: BoxDecoration(
+                      color: ITColors.text.withOpacity(.2),
+                      shape: BoxShape.circle),
                   width: 100,
-                  height: 50,
+                  height: 100,
+                  child: Center(
+                    child: Icon(
+                      Icons.photo_camera,
+                      color: ITColors.primary,
+                    ),
+                  ),
                 ),
               ),
             ),
