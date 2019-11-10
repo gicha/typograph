@@ -97,7 +97,6 @@ class OtherMessageWidget extends StatelessWidget {
           url: "${Config.apiUrl}/message_photo/${message.image.source}",
           autoPlay: true,
           loop: true,
-          reverse: true,
           onViewCreated: (controller) {},
         ),
       );
