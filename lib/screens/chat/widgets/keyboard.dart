@@ -14,6 +14,7 @@ class Keyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50,
+      color: ITColors.bg,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

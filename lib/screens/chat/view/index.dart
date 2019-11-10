@@ -28,9 +28,10 @@ class _ChatViewState extends State<ChatView> {
         builder: (BuildContext context, ChatState state) {
           return Container(
             width: width,
-            child: Column(
+            height: height,
+            child: Stack(
               children: <Widget>[
-                Expanded(
+                Container(
                   child: Container(
                       width: width,
                       height: height - 130,
@@ -39,6 +40,7 @@ class _ChatViewState extends State<ChatView> {
                         controller: provider.scrollController,
                         child: Column(
                           children: <Widget>[
+                            SizedBox(height: 50),
                             if (state.loadStatus == LoadStatus.loading)
                               Container(
                                 height: 50,
@@ -59,12 +61,22 @@ class _ChatViewState extends State<ChatView> {
                                     : OtherMessageWidget(message: state.chat[index]),
                               ),
                             if ((state.chat ?? []).isEmpty) Center(child: Text('отправьте сообщение, чтобы начать')),
+                            SizedBox(height: 50),
                           ],
                         ),
                       )),
                 ),
-                if (state.userTyping != null) UserTypingWidget(userTyping: state.userTyping),
-                Keyboard(provider: provider),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    //height: 130,
+                    width: width,
+                    child: Column(children: [
+                      if (state.userTyping != null) UserTypingWidget(userTyping: state.userTyping),
+                      Keyboard(provider: provider),
+                    ]),
+                  ),
+                ),
               ],
             ),
           );
