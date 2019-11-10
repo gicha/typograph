@@ -73,15 +73,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
-    if (event is FetchChat) yield currentState.copyWith(chat: event.chat, loadStatus: LoadStatus.loaded);
+    if (event is FetchChat) yield currentState.copyWith(chat: event.chat);
     if (event is NewMessageChat) {
       yield currentState.copyWith(newMessage: event.message);
       currentState.chat.add(event.message);
-      yield currentState.copyWith(chat: currentState.chat, loadStatus: LoadStatus.loaded, newMessage: null);
+      yield currentState.copyWith(chat: currentState.chat, newMessage: null);
     }
-    if (event is DerivedMessage) yield currentState.copyWith(newMessageStatus: LoadStatus.loaded, newMessage: null);
     if (event is SendMessage) ITSocket.send(text: event.message, audio: event.audio, media: event.media);
-
     if (event is TypingMessage) ITSocket.typing(event.message);
     if (event is NewUserTyping) yield currentState.copyWith(userTyping: event.userTyping);
   }

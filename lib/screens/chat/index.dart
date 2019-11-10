@@ -56,6 +56,15 @@ class _ChatScreenState extends State<ChatScreen> {
           backgroundColor: ITColors.bg,
           textTheme: TextTheme(title: ITTextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
           iconTheme: IconThemeData(color: Colors.black),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () => InitBloc.getInstance().dispatch(LoginInitEvent()),
+              child: Container(
+                padding: EdgeInsets.only(right: 10),
+                child: Icon(Icons.add_a_photo, color: ITColors.text),
+              ),
+            ),
+          ],
         ),
         body: ChatView(provider: provider),
       )),

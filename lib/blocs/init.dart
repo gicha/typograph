@@ -12,6 +12,8 @@ class ForceInitEvent extends InitEvent {}
 
 class LoadingInitEvent extends InitEvent {}
 
+class LoginInitEvent extends InitEvent {}
+
 enum InitState { notInitedLoading, loading, inited, noUser, afterRegistration }
 
 class InitBloc extends Bloc<InitEvent, InitState> {
@@ -48,6 +50,10 @@ class InitBloc extends Bloc<InitEvent, InitState> {
       var store = StoreRef<String, dynamic>.main();
       Config.userId = await store.record("userId").put(DataBase.db, Config.userId);
       yield InitState.inited;
+    }
+    if (event is LoginInitEvent) {
+      Config.userId = null;
+      yield InitState.noUser;
     }
   }
 }

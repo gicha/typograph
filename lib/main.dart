@@ -122,7 +122,7 @@ void startHome() async {
                           builder: (context, state) {
                             if (state == InitState.noUser) return AuthScreen();
                             if (state == InitState.loading)
-                              return Scaffold(backgroundColor: Theme.of(context).backgroundColor, body: ITLoading());
+                              return Scaffold(backgroundColor: ITColors.bg, body: ITLoading());
                             if (state == InitState.notInitedLoading) return SplashScreen();
                             if (state == InitState.inited) return MainScreen();
                             return Container();

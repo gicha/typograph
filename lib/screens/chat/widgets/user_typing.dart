@@ -34,14 +34,7 @@ class UserTypingWidget extends StatelessWidget {
                   height: 70,
                   width: 70,
                   padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: IgnorePointer(
-                    child: LottieView.fromURL(
-                      url: "${Config.apiUrl}/message_photo/${userTyping.stickers[index]}",
-                      autoPlay: true,
-                      loop: true,
-                      onViewCreated: (controller) {},
-                    ),
-                  ),
+                  child: IgnorePointer(child: lottie(userTyping.stickers[index])),
                 ),
               );
             })
@@ -49,5 +42,23 @@ class UserTypingWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget lottie(String id) {
+    try {
+      return Container(
+        width: 150,
+        height: 150,
+        child: LottieView.fromURL(
+          url: "${Config.apiUrl}/message_photo/$id",
+          autoPlay: true,
+          loop: true,
+          reverse: true,
+          onViewCreated: (controller) {},
+        ),
+      );
+    } on Exception catch (_) {
+      return Container();
+    }
   }
 }

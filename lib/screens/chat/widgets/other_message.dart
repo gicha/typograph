@@ -62,26 +62,17 @@ class OtherMessageWidget extends StatelessWidget {
                             topRight: Radius.circular(20),
                             bottomLeft: Radius.circular(0),
                             bottomRight: Radius.circular(20)),
-                        gradient: LinearGradient(
-                            colors: [ITColors.leftCloudDark, ITColors.leftCloud],
-                            begin: Alignment(-1.0, -1.0),
-                            end: Alignment(4.0, -20.0)),
+                        gradient: message?.image?.source != null && message?.image?.type == "gif"
+                            ? null
+                            : LinearGradient(
+                                colors: [ITColors.leftCloudDark, ITColors.leftCloud],
+                                begin: Alignment(-1.0, -1.0),
+                                end: Alignment(4.0, -20.0)),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          if (message.image != null)
-                            Container(
-                              width: 150,
-                              height: 150,
-                              child: LottieView.fromURL(
-                                url: "${Config.apiUrl}/message_photo/${message.image.source}",
-                                autoPlay: true,
-                                loop: true,
-                                reverse: true,
-                                onViewCreated: (controller) {},
-                              ),
-                            ),
+                          if (message?.image?.source != null && message?.image?.type == "gif") lottie(message),
                           Container(
                             constraints: BoxConstraints(minWidth: 0, maxWidth: MediaQuery.of(context).size.width * .6),
                             child: Text(message.message ?? "", style: ITTextStyle(color: Colors.white, fontSize: 15)),
@@ -95,5 +86,23 @@ class OtherMessageWidget extends StatelessWidget {
         ),
       ]),
     );
+  }
+
+  Widget lottie(Message message) {
+    try {
+      return Container(
+        width: 150,
+        height: 150,
+        child: LottieView.fromURL(
+          url: "${Config.apiUrl}/message_photo/${message.image.source}",
+          autoPlay: true,
+          loop: true,
+          reverse: true,
+          onViewCreated: (controller) {},
+        ),
+      );
+    } on Exception catch (_) {
+      return Container();
+    }
   }
 }

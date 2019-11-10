@@ -27,6 +27,7 @@ class ITSocket {
       List<Message> chat =
           List.from(data["a"].map((item) => serializers.deserializeWith(Message.serializer, item)).toList());
       ChatBloc.getInstance().dispatch(FetchChat(chat: chat));
+      InitBloc.getInstance().dispatch(ForceInitEvent());
     });
 
     socket.on("new message", (data) {
@@ -47,7 +48,10 @@ class ITSocket {
           "image": {"type": media?.type, "source": media?.source}
         }
       ]);
-  static void typing(text) => socket.emit("user_typing", [
+  static void typing(String text) {
+    if (text.split(" ").length > 1 || text.length > 6)
+      socket.emit("user_typing", [
         {"message": text}
       ]);
+  }
 }

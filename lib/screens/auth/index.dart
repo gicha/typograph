@@ -26,9 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
     inputController = TextEditingController();
     inputController.addListener(() => chatBloc.dispatch(TypingMessage(message: inputController.value.text)));
     focus = FocusNode();
-    provider = AuthProvider(
-      chatBloc: chatBloc,
-    );
+    provider = AuthProvider(chatBloc: chatBloc);
     super.initState();
   }
 
@@ -45,7 +43,7 @@ class _AuthScreenState extends State<AuthScreen> {
       child: SafeArea(
           child: Scaffold(
         appBar: AppBar(
-          title: Text('TYPOGRAPH', style: ITTextStyle(fontSize: 14)),
+          title: Text('PHOTOHACK', style: ITTextStyle(fontSize: 20, color: ITColors.text, fontWeight: FontWeight.w400)),
           elevation: 1,
           centerTitle: true,
           backgroundColor: ITColors.bg,
